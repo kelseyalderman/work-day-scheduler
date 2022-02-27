@@ -1,11 +1,4 @@
 // Current day is displayed at the top of the calendar
-// Each time block is color-coded to indicate whether it is in the past, present, or future
-//      Check times every minute?
-// Save event entered in time block by clicking the save button
-//     Save text to local storage
-// Load events from local storage
-
-// Current day is displayed at the top of the calendar
 var date = moment().format("dddd, MMMM Do");
 
 $("#currentDay").text(date);
@@ -19,7 +12,7 @@ var timeTracker = function () {
   $(".time-block").each(function () {
     var blockHour = parseInt($(this).attr("id"));
 
-    // Change ids to color code time blocks to indicate past, present, and future
+    // Change ids to color code time blocks
     if (blockHour < currentHour) {
       $(this).addClass("past");
       $(this).removeClass("present");
@@ -46,3 +39,24 @@ setInterval(function () {
     timeTracker(el);
   });
 }, 1000 * 60 * 10);
+
+// Save event entered in time block by clicking the save button
+$(".saveBtn").on("click", function () {
+  // Get event values
+  var eventText = $(this).siblings(".description").val();
+  var eventTime = $(this).parent().attr("id");
+
+  // Save to locoal storage
+  localStorage.setItem(eventTime, eventText);
+});
+
+// Load events from local storage for each hour
+$("#9 .description").val(localStorage.getItem("9"));
+$("#10 .description").val(localStorage.getItem("10"));
+$("#11 .description").val(localStorage.getItem("11"));
+$("#12 .description").val(localStorage.getItem("12"));
+$("#13 .description").val(localStorage.getItem("13"));
+$("#14 .description").val(localStorage.getItem("14"));
+$("#15 .description").val(localStorage.getItem("15"));
+$("#16 .description").val(localStorage.getItem("16"));
+$("#17 .description").val(localStorage.getItem("17"));
